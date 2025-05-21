@@ -4,6 +4,10 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: "https://serverest.dev",
     supportFile: "cypress/support/e2e.js",
-    specPattern: "cypress/e2e/**/*.cy.js"
+    specPattern: "cypress/e2e/**/*.cy.js",
+    env: {
+      usuario_email: "fulano@qa.com",
+      usuario_senha: "teste"
+    }
   }
 });
