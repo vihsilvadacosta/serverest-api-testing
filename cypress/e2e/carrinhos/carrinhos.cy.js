@@ -50,16 +50,37 @@ describe("Testes de API - Carrinhos (Serverest)", () => {
       expect(res.body.carrinhos).to.be.an("array");
     });
   });
+ 
+it("Deve cadastrar e depois buscar um carrinho por ID", () => {
+  login("fulano@qa.com", "teste").then((resLogin) => {
+    expect(resLogin.status).to.eq(200);
+    const token = resLogin.body.authorization;
 
-  it("Deve buscar um carrinho por ID", () => {
-    listarCarrinhos().then((res) => {
-      const id = res.body.carrinhos[0]._id;
+    cy.request({
+      method: "DELETE",
+      url: "https://serverest.dev/carrinhos/cancelar-compra",
+      headers: { Authorization: token },
+      failOnStatusCode: false
+    }).then(() => {
+      const novoCarrinho = {
+        produtos: [{ idProduto: "BeeJh5lz3k6kSIzA", quantidade: 1 }]
+      };
 
-      buscarCarrinhoPorId(id).then((resBusca) => {
-        expect(resBusca.status).to.eq(200);
-        expect(resBusca.body).to.have.property("idUsuario");
-        expect(resBusca.body).to.have.property("produtos");
+      cadastrarCarrinhoComToken(novoCarrinho, token).then((resCadastro) => {
+        expect(resCadastro.status).to.eq(201);
+
+        listarCarrinhos().then((resListagem) => {
+          const id = resListagem.body.carrinhos[0]._id;
+
+          buscarCarrinhoPorId(id).then((resBusca) => {
+            expect(resBusca.status).to.eq(200);
+            expect(resBusca.body).to.have.property("idUsuario");
+            expect(resBusca.body).to.have.property("produtos");
+          });
+        });
       });
     });
   });
+});
+
 });
