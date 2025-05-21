@@ -1,0 +1,1 @@
+// Suporte global do Cypress para E2E
