@@ -1,1 +1,1 @@
-// Suporte global do Cypress para E2E
+import '@shelex/cypress-allure-plugin';

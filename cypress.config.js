@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 module.exports = defineConfig({
   e2e: {
@@ -8,6 +9,10 @@ module.exports = defineConfig({
     env: {
       usuario_email: "fulano@qa.com",
       usuario_senha: "teste"
+    },
+    setupNodeEvents(on, config) {
+      allureWriter(on, config);
+      return config;
     }
   }
 });
