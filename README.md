@@ -6,8 +6,6 @@ Este repositório contém a automação de testes para a API [Serverest.dev](htt
 - 📊 [Allure Report](https://docs.qameta.io/allure/) para relatórios interativos
 - ⚙️ GitHub Actions para integração contínua (CI/CD)
 
-![Testes Cypress](https://github.com/vihsilvadacosta/serverest-api-auth-dinamica/actions/workflows/cypress-ci.yml/badge.svg)
-
 ---
 
 ## 🚀 Como executar localmente
