@@ -9,13 +9,35 @@ export function login(email, password) {
   });
 }
 
+export function cancelarCompra(token) {
+  return cy.request({
+    method: "DELETE",
+    url: `${apiBase}/carrinhos/cancelar-compra`,
+    headers: {
+     Authorization: token
+    },
+    failOnStatusCode: false
+  });
+}
+
 export function cadastrarCarrinhoComToken(carrinho, token) {
   return cy.request({
     method: "POST",
     url: `${apiBase}/carrinhos`,
     body: carrinho,
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: token  // ✅ REMOVA o "Bearer " daqui!
+    },
+    failOnStatusCode: false
+  });
+}
+
+  export function removerCarrinhoComToken(token) {
+  return cy.request({
+    method: "DELETE",
+    url: `${apiBase}/carrinhos/cancelar-compra`,
+    headers: {
+      Authorization: token
     },
     failOnStatusCode: false
   });
@@ -32,14 +54,6 @@ export function listarCarrinhos() {
 export function buscarCarrinhoPorId(id) {
   return cy.request({
     method: "GET",
-    url: `${apiBase}/carrinhos/${id}`,
-    failOnStatusCode: false
-  });
-}
-
-export function removerCarrinho(id) {
-  return cy.request({
-    method: "DELETE",
     url: `${apiBase}/carrinhos/${id}`,
     failOnStatusCode: false
   });
